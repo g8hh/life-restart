@@ -44,6 +44,7 @@
 }
 
 html {
+    background-color: #222831;
     font-family: PingFangSC, 'Noto Sans CJK SC', 'MS Yahei';
 }
 
@@ -67,21 +68,23 @@ body {
     white-space: nowrap;
     transform: translate(-50%,-50%);
     text-align: center;
+    color: #EEEEEE;
 }
 
 .mainbtn {
     position: fixed;
     top: 65%;
     left: 50%;
-	padding: 0.5rem 1.5rem;
-    border: 1px #ccc solid;
+    padding: 0.5rem 1.5rem;
+    border: 1px #EEEEEE solid;
     border-radius: 0.2rem;
-    background-color:white;
+    background-color:#393E46;
     font-size: 1.6rem;
     white-space: nowrap;
     transform: translate(-50%,-50%);
     cursor: pointer;
     z-index:2;
+    color: #EEEEEE;
 }
 
 .mainbtn:hover {
@@ -106,7 +109,7 @@ body {
     border-radius: 0.2rem;
     background-color:lightsteelblue;
     font-size: 1.4rem;
-    color: white;
+    color: #EEEEEE;
     cursor: pointer;
     z-index:2;
 }
@@ -118,9 +121,9 @@ body {
     padding: 0.1rem 1rem;
     border: none;
     border-radius: 0.2rem;
-    background-color:#222831;
+    background-color:#EEEEEE;
     font-size: 1.4rem;
-    color: #EEEEEE;
+    color: #222831;
     cursor: pointer;
     z-index:2;
 }
@@ -133,6 +136,7 @@ body {
     white-space: nowrap;
     transform: translateX(-50%);
     text-align: center;
+    color: #EEEEEE;
 }
 
 .judge,
@@ -154,7 +158,7 @@ body {
 
 .selectlist > li {
     position: relative;
-    border: 1px #ccc solid;
+    border: 1px #EEEEEE solid;
     display: inline-block;
     width: 95%;
     margin: 0.1rem auto;
@@ -162,6 +166,7 @@ body {
     text-align: center;
     border-radius: 0.2rem;
     cursor: pointer;
+    color: #EEEEEE;
     user-select: none;
 }
 
@@ -173,62 +178,71 @@ body {
 }
 
 .grade0b {
-	background-color: rgb(237, 237, 237);
-	border: #c5c5c5 2px solid !important;
+	background-color: rgb(70, 70, 70);
+	border: #f8f8f8 2px solid !important;
 }
 .grade1b {
 	background-color: rgb(116, 191, 255);
-	border: #c5c5c5 2px solid !important;
+	border: #f8f8f8 2px solid !important;
 }
 .grade2b {
 	background-color: rgb(226, 167, 255);
-	border: #c5c5c5 2px solid !important;
+	border: #f8f8f8 2px solid !important;
 }
 .grade3b {
 	background-color: #ffa07a;
-	border: #c5c5c5 2px solid !important;
+	border: #f8f8f8 2px solid !important;
 }
 
 .grade0b:hover {
-	background-color: rgb(160, 160, 160);
+	background-color: rgb(202, 202, 202);
+    color: #3b3b3b;
 	transition: all .4s ease 0s;
 }
 .grade1b:hover {
 	background-color: rgb(159, 207, 248);
+    color: #3b3b3b;
 	transition: all .4s ease 0s;
 }
 .grade2b:hover {
 	background-color: rgb(240, 212, 255);
+    color: #3b3b3b;
 	transition: all .4s ease 0s;
 }
 .grade3b:hover {
 	background-color: #f7a989;
+    color: #3b3b3b;
 	transition: all .4s ease 0s;
 }
 
 .grade0b.selected {
-    background-color: rgb(160, 160, 160);
+    background-color: rgb(202, 202, 202) !important;
     color: #3b3b3b;
 }
 
 .grade1b.selected {
-    background-color: rgb(159, 207, 248);
+    background-color: rgb(198, 229, 255) !important;
     color: #3b3b3b;
 }
 
 .grade2b.selected {
-	background-color: rgb(240, 212, 255);
+	background-color: rgb(240, 212, 255) !important;
     color: #3b3b3b;
 }
 
 .grade3b.selected {
-    background-color: #f7a989;
+    background-color: #f1bfac !important;
     color: #3b3b3b;
 }
 
 .propinitial {
     top: 5rem;
     bottom: 14rem;
+}
+
+.propbtn:hover{
+	color: #5c5c5c;
+	transition: all .2s ease 0s;
 }
 
 .propinitial > li {
@@ -240,6 +254,7 @@ body {
     text-align: center;
     border-radius: 0.2rem;
     padding: 0.2rem;
+    color: #EEEEEE;
 }
 
 .propinitial > li > input {
@@ -249,25 +264,22 @@ body {
     padding: 0;
     text-align: center;
     font-size: 2rem;
-    border: 0.1rem #ccc solid;
+    border: 0.1rem #EEEEEE solid;
+    background-color: #393E46;
+    color: #EEEEEE;
 }
 
 .propbtn {
     position: relative;
     cursor: pointer;
     font-size: 2rem;
-    user-select: none;
-}
-
-.propbtn:hover{
-	color: #5c5c5c;
-	transition: all .2s ease 0s;
+    color: #EEEEEE;
 }
 
 .lifeTrajectory {
-    border: 1px lightblue solid;
-    border-radius: 10px;
-    background-color: aliceblue;
+	border: 1px #9b9b9b solid;
+    background-color: #393E46;
+	border-radius: 10px;
 }
 
 .judge > li,
@@ -277,9 +289,9 @@ body {
     margin: 0.5rem 0;
     padding: 0.5rem 1rem 0.5rem 6rem;
     font-size: 1.4rem;
-    background-color: white;
-    box-shadow: lightblue 0 0 0.4rem;
-    user-select: none;
+    background-color: #4a5361;
+    box-shadow: #EEEEEE 0 0 0.4rem;
+    color: #EEEEEE;
 }
 
 .judge > li > span,
@@ -291,14 +303,14 @@ body {
 }
 
 .judge > li {
-    box-shadow: lightgray 0 0 0.4rem;
+    box-shadow: #EEEEEE 0 0 0.4rem;
     width: calc(100% - 9rem);
     margin: 0.5rem;
     padding: 0.5rem 1rem 0.5rem 7rem;
 }
 
 .judge > li > span {
-    background-color: white;
+    background-color: #393E46;
     height: calc(100% - 1rem);
     padding: 0.5rem 0;
     top: 0;
@@ -518,5 +530,5 @@ i {
       opacity: 1; } }
 
 ::-webkit-scrollbar {
-	width: 0 !important
+    width: 0 !important
 }
