@@ -1,6 +1,6 @@
 # lifeRestart
 
-![Discord](https://img.shields.io/discord/883382868427014255?color=%23FEE75C&label=Discord&logo=discord&logoColor=white&style=for-the-badge)
+<a href="https://discord.gg/U3qrf49NMQ"><img src="https://img.shields.io/discord/883382868427014255?color=%23FEE75C&label=Discord&logo=discord&logoColor=white&style=for-the-badge" /></a>
 
 English | [简体中文](./README-zh_CN.md)
 
@@ -9,6 +9,8 @@ English | [简体中文](./README-zh_CN.md)
 - Game Life Restart
 
 ## Usage
+
+### Web Version
 
 1. Clone project code.
 
@@ -41,12 +43,12 @@ Or
 npm run dev
 ```
 
-4. Command Line version
+4. After the startup is complete, will automatically open a browser and visit [http://localhost:8081/view/index.html](http://localhost:8081/view/index.html).
+
+### Command Line Version
 
 ```bash
 node repl
 ```
-
-5. After the startup is complete, will automatically open a browser and visit [http://localhost:8081/view/index.html](http://localhost:8081/view/index.html).
 
 > More instructions at [documentation](https://liferestart.syaro.io/)。
