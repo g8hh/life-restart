@@ -1,7 +1,7 @@
 import { max, sum } from './functions/util.js';
 import { summary } from './functions/summary.js'
 import Life from './life.js'
-
+import domtoimage from 'dom-to-image';
 class App{
     constructor(){
         this.#life = new Life();
@@ -101,6 +101,9 @@ class App{
                             if(li.hasClass('selected')) {
                                 li.removeClass('selected')
                                 this.#talentSelected.delete(talent);
+                                if(this.#talentSelected.size<3) {
+                                    talentPage.find('#next').text('请选择3个')
+                                }
                             } else {
                                 if(this.#talentSelected.size==3) {
                                     this.hint('只能选3个天赋');
@@ -122,6 +125,9 @@ class App{
                                 }
                                 li.addClass('selected');
                                 this.#talentSelected.add(talent);
+                                if(this.#talentSelected.size==3) {
+                                    talentPage.find('#next').text('开始新人生')
+                                }
                             }
                         });
                     });
@@ -139,18 +145,28 @@ class App{
             })
 
         // Property
-        const propertyPage = $(`
+        // hint of extension tobermory.es6-string-html
+        const propertyPage = $(/*html*/`
         <div id="main">
             <div class="head" style="font-size: 1.6rem">
                 调整初始属性<br>
                 <div id="total" style="font-size:1rem; font-weight:normal;">可用属性点：0</div>
             </div>
             <ul id="propertyAllocation" class="propinitial"></ul>
-            <button id="random" class="mainbtn" style="top:auto; bottom:7rem">随机分配</button>
-            <button id="start" class="mainbtn" style="top:auto; bottom:0.1rem">开始新人生</button>
+            <ul class="selectlist" id="talentSelectedView" style="top:calc(100% - 17rem); bottom:7rem"></ul>
+            <button id="random" class="mainbtn" style="top:auto; bottom:0.1rem; left:auto; right:50%; transform: translate(-2rem,-50%);">随机分配</button>
+            <button id="start" class="mainbtn" style="top:auto; bottom:0.1rem; left:50%; right:auto; transform: translate(2rem,-50%);">开始新人生</button>
         </div>
         `);
-
+        propertyPage.mounted = ()=>{
+            propertyPage
+            .find('#talentSelectedView').append(
+                `<li>已选天赋</li>` +
+                Array.from(this.#talentSelected)
+                .map(({name,description})=>`<li class="grade0b">${name}(${description})</li>`)
+                .join('')
+            )
+        }
         const groups = {};
         const total = ()=>{
             let t = 0;
@@ -269,7 +285,11 @@ class App{
         <div id="main">
             <ul id="lifeProperty" class="lifeProperty"></ul>
             <ul id="lifeTrajectory" class="lifeTrajectory"></ul>
-            <button id="summary" class="mainbtn" style="top:auto; bottom:0.1rem">人生总结</button>
+            <button id="summary" class="mainbtn" style="top:auto; bottom:0.1rem; left: 25%;">人生总结</button>
+            <button id="domToImage" class="mainbtn" style="top:auto; bottom:0.1rem; left: 75%; display: none">人生回放</button>
+            <div class="domToImage2wx">
+                <img src="" id="endImage" />
+            </div>
         </div>
         `);
 
@@ -279,7 +299,6 @@ class App{
                 if(this.#isEnd) return;
                 const trajectory = this.#life.next();
                 const { age, content, isEnd } = trajectory;
-
                 const li = $(`<li><span>${age}岁：</span>${
                     content.map(
                         ({type, description, grade, name, postEvent}) => {
@@ -298,19 +317,39 @@ class App{
                     $(document).unbind("keydown");
                     this.#isEnd = true;
                     trajectoryPage.find('#summary').show();
+                    trajectoryPage.find('#domToImage').show();
                 } else {
                     // 如未死亡，更新数值
                     // Update properties if not die yet
                     const property = this.#life.getLastRecord();
                     $("#lifeProperty").html(`
-                    <li>颜值：${property.CHR} </li> 
-                    <li>智力：${property.INT} </li> 
-                    <li>体质：${property.STR} </li> 
+                    <li>颜值：${property.CHR} </li>
+                    <li>智力：${property.INT} </li>
+                    <li>体质：${property.STR} </li>
                     <li>家境：${property.MNY} </li>
                     <li>快乐：${property.SPR} </li>`);
                 }
             });
-
+        // html2canvas
+        trajectoryPage
+            .find('#domToImage')
+            .click(()=>{
+                $("#lifeTrajectory").addClass("deleteFixed");
+                const ua = navigator.userAgent.toLowerCase();
+                domtoimage.toJpeg(document.getElementById('lifeTrajectory'))
+                    .then(function (dataUrl) {
+                        let link = document.createElement('a');
+                        link.download = '我的人生回放.jpeg';
+                        link.href = dataUrl;
+                        link.click();
+                        $("#lifeTrajectory").removeClass("deleteFixed");
+                        // 微信内置浏览器，显示图片，需要用户单独保存
+                        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                            $('#endImage').attr('src', dataUrl);
+                        }
+                        
+                    });
+            })
         trajectoryPage
             .find('#summary')
             .click(()=>{
@@ -336,7 +375,7 @@ class App{
             <button id="again" class="mainbtn" style="top:auto; bottom:0.1em"><span class="iconfont">&#xe6a7;</span>再次重开</button>
         </div>
         `);
-
+            
         summaryPage
             .find('#again')
             .click(()=>{
@@ -354,6 +393,7 @@ class App{
                 page: loadingPage,
                 clear: ()=>{},
             },
+
             index: {
                 page: indexPage,
                 btnRank: indexPage.find('#rank'),
@@ -389,6 +429,9 @@ class App{
                 page: propertyPage,
                 clear: ()=>{
                     freshTotal();
+                    propertyPage
+                        .find('#talentSelectedView')
+                        .empty();
                 },
             },
             trajectory: {
@@ -478,6 +521,9 @@ class App{
         $('#main').detach();
         p.clear();
         p.page.appendTo('body');
+        if(typeof p.page.mounted === 'function'){
+            p.page.mounted()
+        }
     }
 
     hint(message, type='info') {
